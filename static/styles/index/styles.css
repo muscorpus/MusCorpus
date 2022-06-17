@@ -1,0 +1,113 @@
+html,
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  background: #F2F6FA;
+}
+
+html {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.hero.is-success {
+  background: #f2f6fa;
+}
+.hero .nav,
+.hero.is-success .nav {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.box {
+  margin-top: 5rem;
+}
+input {
+  font-weight: 300;
+}
+p {
+  font-weight: 700;
+}
+p.subtitle {
+  padding-top: 1rem;
+}
+
+.languages {
+  margin-top: 10px;
+}
+
+.footer-text {
+  font-weight: initial;
+}
+
+.search-container {
+  padding: 0;
+}
+
+@media screen and (max-width: 400px) {
+  .hero-body {
+    padding: 3rem 0rem;
+  }
+}
+
+.box {
+  margin-top: 1.5rem;
+}
+
+.textinput {
+  width: inherit;
+}
+
+input[id^="spoiler"]{
+ display: none;
+}
+input[id^="spoiler"] + label {
+  display: block;
+  text-align: center;
+  text-decoration-style: dashed;
+  cursor: pointer;
+  transition: all .6s;
+}
+.spoiler {
+  font-size: 14px;
+}
+input[id^="spoiler"] ~ .spoiler {
+  width: 90%;
+  height: 0;
+  overflow: hidden;
+  max-height: 0px;
+  opacity: 0;
+  margin: auto;
+  background: #eee;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: all .6s;
+}
+input[id^="spoiler"]:checked + label + .spoiler{
+  max-height: 300px;
+  height: auto;
+  opacity: 1;
+  padding: 10px 0px 10px 10px;
+}
+.spoiler-link {
+  text-decoration: underline 1px dashed;
+}
+.spoiler-link:hover {
+  text-decoration: underline 1px dashed;
+}
+ul {
+  list-style: inside;
+}
+li span {
+  position: relative;
+  left: -10px;
+}
+#instructions{
+  margin: 50px auto;
+  padding: 10px;
+  border: 1px solid black;
+  width: 625px;
+}

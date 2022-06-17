@@ -1,0 +1,151 @@
+{% extends "base.html.j2" %} 
+
+{% block title %} MusCorpus {% endblock %} 
+
+{% block head_scripts %}
+    <!-- Support Scripts -->
+    <script type="text/javascript" src="{{ url_for('static', filename='scripts/index/vexflow-debug.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='scripts/index/MIDI.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='scripts/index/Base64.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='scripts/index/base64binary.js') }}"></script>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/index/VexUI.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/index/styles.css') }}">
+
+    <!-- UI scripts -->
+    <script type="text/javascript" src="{{ url_for('static', filename='scripts/vexflowui/UI.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='scripts/vexflowui/Util.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='scripts/vexflowui/Handler.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='scripts/vexflowui/MouseListener.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='scripts/vexflowui/NoteMap.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='scripts/vexflowui/VexFlowExtension.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='scripts/vexflowui/Constants.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='scripts/vexflowui/KeyboardListener.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='scripts/vexflowui/NoteMenu.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='scripts/vexflowui/Button.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='scripts/vexflowui/NoteMenuButtonRenderer.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='scripts/vexflowui/Toolbar.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='scripts/vexflowui/TipRenderer.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='scripts/vexflowui/Player.js') }}"></script>
+{% endblock %}
+
+{% block navigation %}
+	<nav class="navbar is-white topNav">
+		<div class="container">
+			<div class="logo" style="max-width: 100%;">
+			<img id="logo-svg" src="{{ url_for('static', filename='images/logo.svg') }}">
+				<div id="logo-text" href="/">
+					MusCorpus
+				</div>
+				<div id="motto"></div>
+			</div>
+		</div>
+	</nav>
+{% endblock %}
+
+{% block content %}
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container has-text-centered">
+          <div class="column is-8 is-offset-2 search-container">
+            <div class="box">
+              <form action="/" method="post" id="search">
+              <p class="subtitle is-4" style="margin-bottom: 0.5rem;">Enter score attributes:</p>
+                <div class="columns" style="margin: 0">
+                  <div class="column is-half">
+                    <label for="author">Author: </label>
+                    <input type="text" name="author" style="textinput"></label>
+                  </div>
+                  <div class="column is-half">
+                    <label for="title">Title: </label>
+                    <input type="text" name="title" style="textinput"></label>
+                  </div>
+                </div>
+                <textarea name="payload" id="payload" style="display: none;" value=""></textarea>
+              <p class="subtitle is-4">Enter your search term:</p>
+		<div id="container"></div>
+                <div>
+                  <p class="control">
+                    <div>
+                      <label class="checkbox" style="margin-right: 1rem;">
+                        <input type="checkbox" id="durations" name="durations" />
+                        Ignore durations
+                      </label>
+                      <label class="checkbox">
+                        <input type="checkbox" id="transpose" name="transpose" checked />
+                        Transpose if needed
+                      </label>
+                    </div>
+                  </p>
+				<input type="checkbox"  id="spoiler2" /> 
+				<label for="spoiler2" ><a class="spoiler-link">How to use the sheet input</a></label>
+				<div class="spoiler">
+					Use your mouse to write notation:
+					<ul>
+						<li><span>
+							Left-click to insert current music engraving<br />(Left clicking with note selected on an existing note will start a chord);
+						</span></li>
+						<li><span>
+							Middle-click to change current engraving type: Cycles through notes, rests, bars, clefs, and back to notes;
+						</span></li>
+						<li><span>
+							Scroll Mouse to change notes and rest durations, or bars and clefs types;
+						</span></li>
+						<li><span>
+							Right-click on a note to open a menu with some options (ties are still not implemented).
+						</span></li>
+						<li><span>
+							Hit play to listen to your input
+						</span></li>
+					</ul>
+				</div>
+                </div>
+                <div class="columns is-mobile is-centered is-medium" style="margin-top: 0.75rem; margin-bottom: 1.25rem;"><button class="button is-block is-info">Search</button></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock %}
+
+{% block end_scripts %}
+<script type="text/javascript">
+  var handler = new Vex.UI.Handler("container").init();
+  window.handler.staveList[0].addClef("treble");
+  window.handler.staveList[0].draw();
+  omitDurations = false;
+  omitOctaves = false;
+  
+  function collectNotes() {
+    return {
+      clef: window.handler.staveList[0].clef,
+      keep_durations: !omitDurations,
+      keep_octaves: !omitOctaves,
+      notes: window.handler.staveList[0].tickables.filter(stave => stave.constructor.name === 'StaveNote').map(stave => ({
+        duration: parseInt(stave.duration),
+        noteType: stave.noteType,
+        keys: stave.keyProps.map((key) => ({
+          key: key.key,
+          octave: key.octave
+        })),
+        modifiers: stave.modifiers.map((modifier) => ({
+          index: modifier.index,
+          type: modifier.constructor.name === 'Dot'
+            ? 'dot'
+            : modifier.type
+        }))
+      }))
+    }
+  }
+  
+  $("#search").submit(function(event) {
+    omitDurations = $('#durations').is(':checked');
+    omitOctaves = $('#transpose').is(':checked');
+    var $payload = $('#payload');
+    $payload.val(JSON.stringify(collectNotes()));
+    return true;
+  });
+</script>
+{% endblock %}
+

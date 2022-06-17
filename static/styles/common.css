@@ -1,0 +1,135 @@
+html,body {
+  font-family: "Open Sans", sans-serif;
+  background: #F2F6FA;
+}
+.topNav {
+  border-top: 5px solid #3498DB;
+}
+.topNav .container {
+  border-bottom: 1px solid #E6EAEE;
+}
+.container .columns {
+  margin: 3rem 0;
+}
+.button.is-primary.is-alt {
+  background: #00c6ff;
+  background: -webkit-linear-gradient(to bottom, #0072ff, #00c6ff);
+  background: linear-gradient(to bottom, #0072ff, #00c6ff);
+  font-weight: 700;
+  font-size: 14px;
+  height: 3rem;
+  line-height: 2.8;
+}
+.media-left img {
+  border-radius: 50%;
+}
+.media-content p {
+  font-size: 14px;
+  line-height: 2.3;
+  font-weight: 700;
+  color: #8F99A3;
+}
+article.post {
+  margin: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #E6EAEE;
+}
+article.post:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+.menu-list li {
+  padding: 5px;
+}
+.pagination-link, .pagination-next {
+  background: white;
+}
+.is-disabled:hover {
+  border-color: #dbdbdb;
+  cursor: default;
+}
+.logo {
+	font-size: 2.5rem;
+	grid-gap: 0px .5rem;
+	background: white;
+}
+#logo-text {
+	line-height: 2rem;
+	align-self: center;
+}
+#motto {
+	font-size: 1.125rem;
+}
+@media screen and (min-width: 20em) {
+	.logo {
+		margin: 3px 0px 12px 0px;
+		font-size: calc( 2.5rem + .9375 * (100vw - 20rem) / (60 - 20) );
+		grid-gap: 0px .5rem;
+	}
+	#logo-text {
+		line-height: calc( 2rem + 1.75 * (100vw - 20rem) / (60 - 20) );
+		align-self: center;
+	}
+	#motto {
+		font-size: calc( 1.125rem + .125 * (100vw - 20rem) / (60 - 20) );
+	}
+}
+@media (min-width: 60em) {
+	.logo {
+		margin: 3px 0px 12px 0px;
+		font-size: calc( 2.5rem + .9375rem );
+		grid-gap: 0px .75rem;
+	}
+	#logo-text {
+		line-height: calc( 2rem + 1.75rem );
+		align-self: end;
+	}
+	#motto {
+		font-size: calc( 1.125rem + .125rem );
+	}
+}
+.logo {
+	margin: 12px 0px 12px 0px;
+	top: 0px;
+	left: 0px;
+	width: 100vw;
+	color: black;
+	font-family: Kanit;
+	justify-content: center;
+	display: grid;
+	grid-template-areas:
+		"logo logotext"
+		"motto motto";
+	align-items: center;
+	text-decoration: none;
+}
+#logo-text {
+	display: inline;
+	text-align: center;
+	grid-area: logotext;
+}
+#logo-svg {
+	width: 3.75rem !important;
+	max-width: 3.75rem !important;
+	grid-area: logo;
+	justify-self: end;
+}
+#motto {
+	display: none;
+	font-family: "Open Sans";
+	text-align: center;
+	grid-area: motto;
+}
+a {
+	text-decoration: none;
+	cursor: pointer !important;
+	opacity: 1;
+	transition: .15s ease-in-out;
+	-moz-transition: .15s ease-in-out;
+	-webkit-transition: .15s ease-in-out;
+	-ms-transition: .15s ease-in-out;
+	-o-transition: .15s ease-in-out;
+}
+a:hover {
+	text-decoration: none;
+}

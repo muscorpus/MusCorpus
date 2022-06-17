@@ -1,0 +1,13 @@
+.searchresult {
+  font-size: 1.5rem;
+  color: black;
+  text-align: center;
+}
+#hack-header {
+    content: "";
+    font-size: 1.5rem;
+    position: absolute;
+    font-weight: normal;
+    top: -2rem;
+    left: 1rem;
+}

@@ -1,0 +1,7 @@
+lxml
+python-Levenshtein
+thefuzz
+flask
+flask-cors
+gunicorn
+

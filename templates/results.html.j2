@@ -1,0 +1,110 @@
+{% extends "base.html.j2" %} 
+
+{% block title %} MusCorpus — results {% endblock %} 
+
+{% block head_scripts %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/results/styles.css') }}">
+{% endblock %}
+
+{% block navigation %}
+  <nav class="navbar is-white topNav">
+    <div class="container">
+      <div class="logo" style="max-width: 100%;">
+      <img id="logo-svg" src="{{ url_for('static', filename='images/logo.svg') }}">
+        <div id="logo-text" href="/">
+          MusCorpus
+        </div>
+        <div id="motto"></div>
+      </div>
+    </div>
+  </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="columns" style="margin: 1.5rem 0 0 0;">
+      <div class="column is-10 is-offset-1" style="padding: 0;">
+        <h3 class="searchresult">{{ searchresult }}</h3>
+      </div>
+    </div>
+    <section class="container">
+      <div class="columns" style="{{ showcolumns }}">
+        
+        <div class="column is-full">
+          <div class="box content">
+              {% for composition in result %}
+                <article class="post">
+                  <h4 class="title is-5 has-text-weight-bold is-marginless">
+                    <a href="{{ composition["title_link"] }}">{{ composition["title"] }}</a>
+                    {% if composition["div_ids"][0] == "osmdCanvas0" %}
+                      <div id="hack-header">Your search yielded {{ result_count }}:</div>
+                    {% endif %}
+                  </h4>
+                  <div><a href="{{ composition["author_link"] }}">{{ composition["author"] }}</a></div>
+                  {% for div_id in composition["div_ids"] %}
+                    <div id="{{ div_id }}"></div>
+                  {% endfor %}
+                </article>
+              {% endfor %}
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    
+<div class="container" style="display: none;"><div class="column is-full" style="margin: -3rem 0 3rem 0;"><nav class="pagination is-rounded" role="navigation" aria-label="pagination">
+  <a class="pagination-previous is-disabled" title="This is the first page">Previous</a>
+  <a class="pagination-next">Next page</a>
+  <ul class="pagination-list">
+    <li>
+      <a class="pagination-link is-current" aria-label="Page 1" aria-current="page">1</a>
+    </li>
+    <li>
+      <a class="pagination-link" aria-label="Goto page 2">2</a>
+    </li>
+    <li>
+      <a class="pagination-link" aria-label="Goto page 3">3</a>
+    </li>
+  </ul>
+</nav></div></div>
+{% endblock %}
+
+{% block end_scripts %}
+<script type="text/javascript">
+  result_xmls = [
+{{ mxml_strings }}
+];
+
+  function draw_canvas(cid, mxml) {
+    var _osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay("osmdCanvas" + cid, {
+      drawingParameters: "compact",
+      drawPartNames: false
+    });
+  
+    _osmd.load(mxml).then(
+      function() {
+        _osmd.render();
+      }
+    )
+    
+    return _osmd.sheet.staves.length
+  }
+
+  _staves = []
+
+  for (var i=0; i<result_xmls.length; i++) {
+    _staves.push(draw_canvas(i, result_xmls[i]));
+  }
+  
+  setTimeout(function () {
+    for (var i=0; i<result_xmls.length; i++) {
+      var _cp = document.querySelectorAll("#osmdCanvasPage1")[i];
+      _cp.style.position="relative";
+      _cp.style.left="-50px";
+      _cp.style.top="10px";
+      // $("#osmdCanvas" + i)[0].style.height=100 * _staves[i] + "px";
+    }
+    delete result_xmls;
+  }, 500);
+  
+</script>
+{% endblock %}
