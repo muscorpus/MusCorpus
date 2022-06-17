@@ -11,6 +11,6 @@ We rely on `basexhttp` Docker image from BaseX and strongly recommend to set up 
 * Install the required files via conda-forge: `mamba install -yq -c conda-forge --file conda_requirements.txt`
 * Then proceed with installing packages not available via `conda-forge`: `pip install -q -r requirements.txt`
 * Pull the `basexhttp` image: `docker pull basex/basexhttp`.
-* Start the BaseX server: `docker run -ti --name basexhttp --publish 1984:1984 --publish 8984:8984--volume "$(pwd)/basex_data":/srv/basex/data basex/basexhttp:latest`.
+* Start the BaseX server: `docker run -dt --name basexhttp --publish 1984:1984 --publish 8984:8984 --volume "$(pwd)/basex_data/metacorpus":/srv/metacorpus --volume "$(pwd)/basex_data":/srv/basex/data basex/basexhttp:latest`.
 * Finally, boot the web server: `gunicorn --bind 0.0.0.0:80 --bind 0.0.0.0:443 wsgi:app`
 
