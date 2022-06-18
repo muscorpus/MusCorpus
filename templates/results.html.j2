@@ -9,15 +9,15 @@
 {% block navigation %}
   <nav class="navbar is-white topNav">
     <div class="container">
-      <a href="/">
-        <div class="logo" style="max-width: 100%;">
-          <img id="logo-svg" src="{{ url_for('static', filename='images/logo.svg') }}" />
+      <div style="max-width: 100%;">
+        <a href="/" class="logo logolink">
+          <img id="logo-svg" src="/static/images/logo.svg">
           <div id="logo-text" href="/">
             MusCorpus
           </div>
           <div id="motto"></div>
-        </div>
-      </a>
+        </a>
+      </div>
     </div>
   </nav>
 {% endblock %}

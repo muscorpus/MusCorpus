@@ -53,6 +53,15 @@ article.post:last-child {
 	grid-gap: 0px .5rem;
 	background: white;
 }
+.logolink {
+	color: inherit;
+	max-width: 100%;
+	transition: none;
+	-moz-transition: none;
+	-webkit-transition: none;
+	-ms-transition: none;
+	-o-transition: none;
+}
 #logo-text {
 	line-height: 2rem;
 	align-self: center;
