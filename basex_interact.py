@@ -198,15 +198,15 @@ def _retrieve_info_from_uri(uri):
     if uri not in corpus_reference:
         return {
         "title": re.sub(r"\.(xml|mxl|musicxml)$", "", uri.split("/")[-1]).replace("_", " "),
-        "title_link": "",
+        "title_link": "#",
         "author": "Unknown",
-        "author_link": ""
+        "author_link": "#"
         }
     return {
         "title": re.sub(r"\.(xml|mxl|musicxml)$", "", corpus_reference[uri]["title"].split("/")[-1]).replace("_", " "),
-        "title_link": corpus_reference[uri]["title_link"],
+        "title_link": corpus_reference[uri]["title_link"] if corpus_reference[uri]["title_link"] else "#",
         "author": corpus_reference[uri]["author"],
-        "author_link": corpus_reference[uri]["author_link"]
+        "author_link": corpus_reference[uri]["author_link"] if corpus_reference[uri]["author_link"] else "#"
     }
 
 
@@ -214,7 +214,7 @@ def catch_process_query(author="", title="", notes_json={}):
     try:
         notes_queried, _query = build_xquery(notes_json)
         if not notes_queried:
-            searchresult = "You have entered an empty query."
+            searchresult = "You have entered an empty search term."
             return searchresult, 0, "", []
         _result = basex_search(_query)
         if not _result:

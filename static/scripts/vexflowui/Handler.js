@@ -199,12 +199,22 @@ Vex.UI.Handler.prototype.updateProvisoryType = function(newType){
 	
 	switch(newType){
 	case Vex.UI.TickableType.NOTE:
+		if(this.provisoryTickable) {
+			duration = this.provisoryTickable.duration;
+			if(duration === "32") {
+				break;
+			}
+		}
 		this.provisoryTickable = new Vex.Flow.StaveNote({keys: ["d/4"], duration: "4" });
 		break;
 	case Vex.UI.TickableType.REST:
 		var duration = "4";//TODO make it more configurable, or at least dinamic
-		if(this.provisoryTickable)
+		if(this.provisoryTickable) {
 			duration = this.provisoryTickable.duration;
+			if(duration === "32") {
+				break;
+			}
+		}
 		this.provisoryTickable = new Vex.Flow.StaveNote({ keys: ["b/4"], duration: duration + "r" });
 		break;
 	case Vex.UI.TickableType.BAR:

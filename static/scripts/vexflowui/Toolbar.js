@@ -102,6 +102,7 @@ Vex.UI.Toolbar.prototype.handleEvent = function(evt){
 			this.handler.updateProvisoryDuration(32);
 			this.handler.provisoryTickable.note_heads[0].glyph_code = "v5d";
 			this.handler.provisoryTickable.note_heads[0].y = 60;
+			this.handler.redraw();
 			break;
 	}
 };

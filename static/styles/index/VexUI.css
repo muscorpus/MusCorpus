@@ -210,8 +210,8 @@
 
 .wildcard:before {
   content: "𝆯";
-  font-size: 3rem;
-  line-height: 2.75rem;
+  font-size: 2.75rem;
+  line-height: 3rem;
 }
 
 canvas {
