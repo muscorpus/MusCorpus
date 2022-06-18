@@ -69,30 +69,35 @@ Vex.UI.Toolbar.prototype.handleEvent = function(evt){
 		case "wholeNote":
 			this.handler.updateProvisoryType("note");
 			this.handler.updateProvisoryDuration(1);
+			break;
 		case "wholeRest":
 			this.handler.updateProvisoryDuration(1);
 			break;
 		case "halfNote":
 			this.handler.updateProvisoryType("note");
 			this.handler.updateProvisoryDuration(2);
+			break;
 		case "halfRest":
 			this.handler.updateProvisoryDuration(2);
 			break;
 		case "quarterNote":
 			this.handler.updateProvisoryType("note");
 			this.handler.updateProvisoryDuration(4);
+			break;
 		case "quarterRest":
 			this.handler.updateProvisoryDuration(4);
 			break;
 		case "eightNote":
 			this.handler.updateProvisoryType("note");
 			this.handler.updateProvisoryDuration(8);
+			break;
 		case "eightRest":
 			this.handler.updateProvisoryDuration(8);
 			break;
 		case "sixteenthNote":
 			this.handler.updateProvisoryType("note");
 			this.handler.updateProvisoryDuration(16);
+			break;
 		case "sixteenthRest":
 			this.handler.updateProvisoryDuration(16);
 			break;
