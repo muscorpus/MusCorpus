@@ -30,17 +30,19 @@
 {% endblock %}
 
 {% block navigation %}
-	<nav class="navbar is-white topNav">
-		<div class="container">
-			<div class="logo" style="max-width: 100%;">
-			<img id="logo-svg" src="{{ url_for('static', filename='images/logo.svg') }}">
-				<div id="logo-text" href="/">
-					MusCorpus
-				</div>
-				<div id="motto"></div>
-			</div>
-		</div>
-	</nav>
+  <nav class="navbar is-white topNav">
+    <div class="container">
+      <a href="/">
+        <div class="logo" style="max-width: 100%;">
+          <img id="logo-svg" src="{{ url_for('static', filename='images/logo.svg') }}" />
+          <div id="logo-text" href="/">
+            MusCorpus
+          </div>
+          <div id="motto"></div>
+        </div>
+      </a>
+    </div>
+  </nav>
 {% endblock %}
 
 {% block content %}
